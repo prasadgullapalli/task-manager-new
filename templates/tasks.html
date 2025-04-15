@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+    <h2>Tasks</h2>
+    <form method="POST">
+        <input type="text" name="title" placeholder="Task Title" required>
+        <input type="date" name="due_date" required>
+        <select name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }} - {{ task.due_date }} - {{ task.priority }} - {{ task.status }}
+                <a href="{{ url_for('update_status', id=task.id) }}">Update Status</a>
+                <a href="{{ url_for('delete', id=task.id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
